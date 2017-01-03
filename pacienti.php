@@ -134,6 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <tbody>
               <?php
                 foreach($all_pacients as $pacient){
+                  buildModificarePacientiModals($pacient);
                   echo '<tr>
                           <td>'.$pacient['PacientID'].'</td>
                           <td>'.$pacient['NumePacient'].'</td>
@@ -142,8 +143,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                           <td>'.$pacient['Adresa'].'</td>
                           <td>'.($pacient['Asigurare'] ? '<span style="color:limegreen;">Da</span>' : '<span style="color:red">Nu</span>').'</td>
                           <td>
-                            <a title="Modifica" href="#"><i class="glyphicon glyphicon-cog"></i></a>
-                            <a title="Sterge" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                            <a data-toggle="modal" data-target="#modal-id-'.$pacient['PacientID'].'" title="Modifica" href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a onclick="deletePacient('.$pacient['PacientID'].')" title="Sterge" href="#"><i class="glyphicon glyphicon-remove"></i></a>
                           </td>
                         </tr>';
                 }
@@ -151,10 +152,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </tbody>
           </table>
       </div>
+
+      <div class="modals-wrapper">
+        <?php
+          echo implode('', $modifyPacienti);
+        ?>
+      </div>
     </section>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/requests.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

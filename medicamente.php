@@ -101,12 +101,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <tbody>
               <?php
                 foreach($all_meds as $med){
+                  buildModificareMedicamenteModals($med);
                   echo '<tr>
                           <td>'.$med['MedicamentID'].'</td>
                           <td>'.$med['Denumire'].'</td>
                           <td>
-                            <a title="Modifica" href="#"><i class="glyphicon glyphicon-cog"></i></a>
-                            <a title="Sterge" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                            <a data-toggle="modal" data-target="#modal-id-'.$med['MedicamentID'].'" title="Modifica" href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a onclick="deleteMedicament('.$med['MedicamentID'].')" title="Sterge" href="#"><i class="glyphicon glyphicon-remove"></i></a>
                           </td>
                         </tr>';
                 }
@@ -114,10 +115,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </tbody>
           </table>
       </div>
+
+      <div class="modals-wrapper">
+        <?php
+          echo implode('', $modifyMeds);
+        ?>
+      </div>
+
     </section>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/requests.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

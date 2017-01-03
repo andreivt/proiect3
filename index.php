@@ -161,6 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <tbody>
               <?php
                 foreach($all_consults as $consults){
+                  buildModificareConsultModals($consults);
                   echo '<tr>
                           <td>'.$consults['ConsultatieID'].'</td>
                           <td>'.$consults['NumePrenumeMedic'].'</td>
@@ -170,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                           <td>'.$consults['Diagnostic'].'</td>
                           <td>'.$consults['DozaMedicament'].'</td>
                           <td>
-                            <a title="Modifica" href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                            <a data-toggle="modal" data-target="#modal-id-'.$consults['ConsultatieID'].'" title="Modifica" href="#"><i class="glyphicon glyphicon-cog"></i></a>
                             <a onclick="deleteConsult('.$consults['ConsultatieID'].')" title="Sterge" href="#"><i class="glyphicon glyphicon-remove"></i></a>
                           </td>
                         </tr>';
@@ -178,6 +179,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                ?>
             </tbody>
           </table>
+      </div>
+      <div class="modals-wrapper">
+        <?php
+          echo implode('', $modifyConsults);
+        ?>
       </div>
     </section>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
